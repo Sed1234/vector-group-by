@@ -13,7 +13,7 @@ int main() {
 	myList.showStudents();
 	myList.AveregeGrade();
 	myList.MaxMinGrade();
-	myList.SortByGrade();
+	//myList.SortByGrade();
 	system("pause");
 	return 0;
 }
