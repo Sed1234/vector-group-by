@@ -1,7 +1,16 @@
-#include "Groupofstudents.h"
+#include "GroupOfStudents.h"
 
 GroupOfStudents::GroupOfStudents()
 {
+
+}
+
+GroupOfStudents::GroupOfStudents(const GroupOfStudents & students)
+{
+   this->group= students.group;
+   this->students = students.students;
+
+   std::cout << "Constuctor created" << std::endl;
 }
 
 
@@ -14,6 +23,12 @@ void GroupOfStudents::setGroup(int _group) {
 int GroupOfStudents::getGroup() {
 	return group;
 }
+
+// GroupOfStudents & GroupOfStudents::getInstance()
+//{
+//	static GroupOfStudents instance;
+//	return instance;
+//}
 
 void GroupOfStudents::addStudent(int grade, std::string name, int _group)
 {
@@ -50,7 +65,7 @@ void GroupOfStudents::MaxMinGrade()
 		if (s.getGrade() > max)
 			max = s.getGrade();
 	}
-	std::cout<<"Max grade is :" << max << std::endl;
+	std::cout << "Max grade is :" << max << std::endl;
 
 	int min = 10;
 	for (Student s : students) {
@@ -59,15 +74,27 @@ void GroupOfStudents::MaxMinGrade()
 	}
 	std::cout << "Min grade is :" << min << std::endl;
 }
-
-std::vector<Student> GroupOfStudents::SortByGrade()
+bool myfunction(Student & a, Student & b) { return a.getGrade() < b.getGrade(); }
+void GroupOfStudents::SortByGrade()
 {
-	std::sort (students.begin(), students.end(), myfunction);
+	std::sort(students.begin(), students.end(), myfunction);
 	for (int i = 0; i < students.size(); i++)
 	{
 		std::cout << students[i].getGrade() << std::endl;
 	}
-	
+
+}
+
+void GroupOfStudents::DeleteStudentByName(std::string name)
+{
+	for (int i = 0; i<students.size(); i++)
+	{
+		if (students[i].getName() == name)
+		{
+			students.erase(students.begin());
+		}
+		std::cout << students[i].getName() << " " << students[i].getGrade() << std::endl;
+	}
 }
 
 std::vector<Student> GroupOfStudents::searchStudentsByName(std::string name)
@@ -80,4 +107,3 @@ std::vector<Student> GroupOfStudents::searchStudentsByName(std::string name)
 	}
 	return result;
 }
- bool GroupOfStudents::myfunction( Student  & a,  Student & b) { return a.getGrade() > b.getGrade(); }
